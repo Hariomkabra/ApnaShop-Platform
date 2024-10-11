@@ -39,13 +39,10 @@ ApnaShop is a user-friendly e-commerce platform built with Django, designed to p
 To set up the project locally, clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/apnashop.git
-
+git clone https://github.com/Hariomkabra/ApnaShop-Platform.git
 
 Navigate to the project directory and install dependencies:
-
 cd apnashop
-pip install -r requirements.txt
 
 ### 2. Environment Variables
 SECRET_KEY=your_django_secret_key
@@ -104,12 +101,7 @@ Payment Gateway: Integrated payment solutions (e.g., Razorpay, Stripe,Paytm)![Ap
 Local Development:
 To run the project locally:
 Use Command "python manage.py runserver"
-Visit the application at  "  http://127.0.0.1:8000/![Apnashop04](https://github.com/user-attachments/assets/9861c3cc-a2ce-4a0d-979c-321221636026)
-.  "
-![Apnashop03](https://github.com/user-attachments/assets/45ab24e8-e0c0-42ba-adc0-cb17cf52b179)
-
-License![Apnashop06](https://github.com/user-attachments/![Apnashop05](https://github.com/user-attachments/assets/ac39283a-f36a-491e-96de-bb06fbfa26d0)
-assets/3f21b259-9ae4-4b0f-b165-18844f4e6ece)
+Visit the application at  "  http://127.0.0.1:8000 "
 
 ApnaShop is licensed under the MIT License.
 
