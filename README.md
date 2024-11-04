@@ -1,4 +1,4 @@
-# ApnaShop-Platform
+![Apnashop01](https://github.com/user-attachments/assets/c97cd75b-e625-484b-8b5b-363390c02248)# ApnaShop-Platform
 ApnaShop is a user-friendly e-commerce platform built with Django, designed to provide customers with a seamless online shopping experience. It offers features such as product browsing, like shopping and easy account management. 
 
 # ApnaShop
@@ -81,8 +81,8 @@ Users can view their past orders, check order statuses, and review their purchas
 
 
 How to Use:
-1. Adding Products to Cart
-Browse through the product listings and click on "Add to Cart" for the items you'd like to purchase. You can view the cart summary in the cart icon at the top of the page.
+1. Adding Products to the Cart
+Browse the product listings and click "Add to Cart" for the items you'd like to purchase. You can view the cart summary in the cart icon at the top of the page.
 2. Checkout & Payments
 Once you're ready, click the checkout button. The system will redirect you to the payment gateway where you can complete the purchase. Once the payment is successful, you'll be redirected to an order confirmation page.
 3. Login/Signup
@@ -103,7 +103,19 @@ To run the project locally:
 Use Command "python manage.py runserver"
 Visit the application at  "  http://127.0.0.1:8000 "
 
+
+
+
 ApnaShop is licensed under the MIT License.
 
 Contributions
 We welcome contributions! Feel free to fork this repository and create pull requests to enhance the platform.
+
+##Screenshots:
+![Uploading Apnashop01.PNG…]()
+![Apnashop03](https://github.com/user-attachments/assets/3bdad029-a8ac-4761-8b4a-f61f1f956612)
+![Apnashop04](https://github.com/user-attachments/assets/38278747-05f5-4285-8440-7ae657db53c7)
+![Apnashop06](https://github.com/user-attachments/assets/372338aa-efb7-4703-9235-036a80abf305)
+![Apnashop06](https://github.com/user-attachments/assets/4a911016-5901-4abb-bcd7-b8d209981ed2)
+![django01](https://github.com/user-attachments/assets/441b6f8f-e072-4f99-bfee-e6dcf508d068)
+
