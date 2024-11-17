@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% block title %} 
+Home
+{% endblock title %}
+{% block content %}
+
+<h1>Welcome to Apna Shop</h1>
+
+{% endblock content %}
+{% block body %}
+{% load static %}
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section">
+        <div class="container">
+
+          {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% endfor %}
+
+          <!-- Section Title -->
+          <div class="container section-title" data-aos="fade-up">
+            <h2>Welcome to our ApnaShop</h2>
+            <p><span>Check Our</span> Products <span class="description-title">Portfolio</span></p>
+          </div><!-- End Section Title -->
+
+          {% for product, range, nslide in allprods %}
+          <h3 class="my-3 text-center text-success bg-light">{{ product.0.category }} Flashsale</h3>
+
+          <div class="container">
+            <div class="row">
+
+              {% for i in product %}
+              <div class="col-md-3 mt-3">
+                <img src="/media/{{ i.image }}" class="card-img-top" alt="not found" style="width: 100%; height: auto;" />
+                <div class="card-body">
+                  <h5 class="card-title mt-4" id="namepr{{ i.id }}">{{ i.product_name }}</h5>
+                  <p class="card-text">{{ i.desc|slice:"0:53" }}....</p>
+                  <h6 class="card-title mb-3">
+                    Price: <span id="price{{ i.id }}">{{ i.price }}</span>
+                  </h6>
+                  <span id="divpr{{ i.id }}" class="divpr">
+                    <button id="pr{{ i.id }}" class="btn btn-success cart btn-sm mt-0" onclick="addToCart({{ i.id }})">Add to Cart</button>
+                  </span>
+                  <a href="/media/{{ i.image }}">
+                    <button class="btn btn-dark btn-sm cart">View</button>
+                  </a>
+                </div>
+              </div>
+              {% endfor %}
+
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="row">
+              {% for i in range %}
+              <div class="col-md-3 mt-3">
+                <img src="/media/{{ i.image }}" class="card-img-top" alt="....">
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+    </section><!-- /Portfolio Section -->
+
+    <!--javascript code-->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHFaFRLMFy6iS5RaxvfOCfiBUOylxHdJyoirFRNXM7RBUSdWHzYulhA62obYgqt" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  
+    <script>
+      // Check if cart exists in localStorage, initialize if not
+      if (localStorage.getItem('cart') == null) {
+          var cart = {};
+      } else {
+          cart = JSON.parse(localStorage.getItem('cart'));
+          updateCart(cart);
+      }
+
+      // Add to Cart function
+      function addToCart(id) {
+          var idstr = id.toString();
+          console.log(idstr);
+
+          if (cart[idstr] !== undefined) {
+              cart[idstr][0] += 1; // Increment quantity if item already in cart
+          } else {
+              var name = document.getElementById('namepr' + idstr).innerHTML;
+              var price = document.getElementById('price' + idstr).innerHTML;
+              cart[idstr] = [1, name, price]; // Initialize item with quantity, name, price
+          }
+
+          updateCart(cart);
+
+          // Save cart to localStorage
+          localStorage.setItem('cart', JSON.stringify(cart));
+
+          // Update cart count and popcart display
+          document.getElementById('cart').innerHTML = Object.keys(cart).length;
+          console.log(Object.keys(cart).length);
+          updatedPopover(cart);
+      }
+
+      // Add popover to cart
+      $('#popcart').popover();
+
+      function updatedPopover(cart) {
+          var popStr = "<h5>Cart for your items in my shopping cart</h5> <div class='mx-2 my-2'>";
+          var i = 1;
+
+          for (var item in cart) {
+              popStr += "<b>" + i + "</b>. ";
+              popStr += document.getElementById('namepr' + item).innerHTML.slice(0, 19) + "... " + 
+                        "<b>" + cart[item][0] + "</b> Qty<br>";
+              i++;
+          }
+
+          // Add checkout and clear cart buttons
+          popStr += "</div> <a href='/checkout'><button class='btn btn-success' id='clearCart'>Checkout</button></a> ";
+          popStr += "<button class='btn btn-dark' onClick='clearCart()' id='clearCart'>Clear Cart</button>";
+
+          document.getElementById('popcart').setAttribute('data-content', popStr);
+          $('#popcart').popover('show');
+      }
+
+      // Clear cart function
+      function clearCart() {
+          cart = {};
+
+          // Reset the Add to Cart button for all items
+          for (var item in cart) {
+              document.getElementById('divpr' + item).innerHTML = '<button id="' + item + 
+              '" class="btn btn-danger cart" onclick="addToCart(' + item + ')">Add to Cart</button>';
+          }
+
+          // Clear localStorage and cart object
+          localStorage.clear();
+          updateCart(cart);
+
+          // Refresh the popcart display
+          updatedPopover(cart);
+      }
+
+      // Update cart display function
+      function updateCart(cart) {
+          var sum = 0;
+          for (var item in cart) {
+              sum += cart[item][0];  // Summing up the quantities in the cart
+              document.getElementById('divpr' + item).innerHTML = 
+                "<button id='minus" + item + "' class='btn btn-success minus'>-</button>" + 
+                "<span id='valpr" + item + "'>" + cart[item][0] + "</span>" + 
+                "<button id='plus" + item + "' class='btn btn-success plus'>+</button>";
+          }
+
+          localStorage.setItem('cart', JSON.stringify(cart));  // Storing cart in localStorage
+          document.getElementById('cart').innerHTML = sum;  // Updating cart sum
+      }
+
+      // Plus and minus functionality for quantity
+      $('.divpr').on("click", "button.minus", function() {
+          var id = this.id.slice(6); // Extract item id
+          if (cart[id][0] > 1) { // Ensure quantity does not go below 1
+              cart[id][0] -= 1; // Decrement quantity
+          } else {
+              delete cart[id]; // Remove item from cart if quantity is 0
+              document.getElementById('divpr' + id).innerHTML = 
+                '<button id="' + id + '" class="btn btn-danger cart" onclick="addToCart(' + id + ')">Add to Cart</button>';
+          }
+          updateCart(cart);
+          updatedPopover(cart);
+      });
+
+      $('.divpr').on("click", "button.plus", function() {
+          var id = this.id.slice(5); // Extract item id
+          cart[id][0] += 1; // Increment quantity
+          updateCart(cart);
+          updatedPopover(cart);
+      });
+  </script>
+  
+    
+{% endblock body %}

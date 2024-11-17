@@ -1,0 +1,75 @@
+{% extends "base.html"%}
+
+{% block title %} Profile  page{% endblock title %}
+
+{% block body %}
+
+<section id="portfolio" class="portfolio section">
+    <div class="container">
+
+<h1>My Profile </h1>
+
+<table class="table table-info table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Productd</th>
+            <th scope="col">Amount Paid</th>
+            <th scope="col">PaymentStatus</th>
+            <th scope="col">Address</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Delivery Status</th>
+            <th scope="col">Delivered </th>
+            <th scope="col">Date</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for i in items %}
+
+        <tr>
+            <th scope="row">{{i.oid}}</th>
+            <td>{{i.name}}</td>
+            <td>{{i.items_json}}</td>
+            <td>{{i.amount}}</td>
+            <td>{{i.paymentstatus}}</td>
+            <td>{{i.address}}</td>
+            <td>{{i.phone}}</td>
+
+            {% for j in status %}
+            <td> {{j.updates_desc}}</td>
+
+
+            <td> {{j.delivered}}</td>
+            {% if item.delivery %}
+            <td><i class="fa-solid fa-circle-check"></i> Delivered</td>
+            {% else %}
+            <td><i class="fa-solid fa-truck"></i> Not Delivered</td>
+            {% endif %}
+
+            
+            
+            
+            <td> {{j.timestamp}}</td>
+
+            {% endfor %}
+
+
+         
+        </tr>
+        
+
+       
+
+        {% endfor %}
+
+
+    </tbody>
+
+</table>
+    </div>
+</section>
+
+    
+{% endblock body %}
